@@ -11,6 +11,7 @@ int ListLength(struct ListNode *head);
 void printList(struct ListNode *head);
 void InsertInLinkedList(struct ListNode **head,int data, int position);
 void DeleteNodeFromLinkedList(struct ListNode **head, int position);
+void DeleteLinkedList(struct ListNode **head);
 
 using namespace std;
 int main(){
@@ -19,6 +20,9 @@ int main(){
 	InsertInLinkedList(&HEAD,3,3);
 	InsertInLinkedList(&HEAD,4,2);
 	DeleteNodeFromLinkedList(&HEAD,3);
+	printList(HEAD);
+	DeleteLinkedList(&HEAD);
+	InsertInLinkedList(&HEAD,1,1);
 	printList(HEAD);
 	return 0;
 }
@@ -35,10 +39,15 @@ int ListLength(struct ListNode *head){
 }
 void printList(struct ListNode *head){
 	struct ListNode *current = head;
+	if(head=NULL){
+		cout<<"Empty list"<<endl;
+		return;
+	}
 	while(current!=NULL){
 		cout<<current->data<<", ";
 		current= current->next;
 	}
+	cout<<endl;
 }
 void InsertInLinkedList(struct ListNode **head,int data, int position){
 	int k=1;
@@ -98,4 +107,15 @@ void DeleteNodeFromLinkedList(struct ListNode **head, int position){
 			free(p);
 		}
 	}
+}
+
+void DeleteLinkedList(struct ListNode **head){
+	struct ListNode *auxilaryNode, *iterator;
+	iterator = *head;
+	while(iterator){
+		auxilaryNode = iterator->next;
+		free(iterator);
+		iterator = auxilaryNode;
+	}
+	*head = NULL;
 }
