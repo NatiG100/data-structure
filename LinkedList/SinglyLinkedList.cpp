@@ -10,6 +10,7 @@ struct ListNode *HEAD;
 int ListLength(struct ListNode *head);
 void printList(struct ListNode *head);
 void InsertInLinkedList(struct ListNode **head,int data, int position);
+void DeleteNodeFromLinkedList(struct ListNode **head, int position);
 
 using namespace std;
 int main(){
@@ -17,6 +18,7 @@ int main(){
 	InsertInLinkedList(&HEAD,2,2);
 	InsertInLinkedList(&HEAD,3,3);
 	InsertInLinkedList(&HEAD,4,2);
+	DeleteNodeFromLinkedList(&HEAD,3);
 	printList(HEAD);
 	return 0;
 }
@@ -65,6 +67,35 @@ void InsertInLinkedList(struct ListNode **head,int data, int position){
 		else{
 			q->next = newNode;
 			newNode->next = p;
+		}
+	}
+}
+void DeleteNodeFromLinkedList(struct ListNode **head, int position){
+	int k=1;
+	struct ListNode *p, *q;
+	if(*head == NULL){
+		printf("List Empty");
+		return;
+	}
+	p=*head;
+	if(position==1){
+		p = *head;
+		*head = (*head)->next;
+		free(p);
+		return;
+	}
+	else{
+		while((p!=NULL)&&(k<position)){
+			k++;
+			q=p;
+			p=p->next;
+		}
+		if(p==NULL){
+			printf("Position does not exist!");
+		}
+		else{
+			q->next = p->next;
+			free(p);
 		}
 	}
 }
